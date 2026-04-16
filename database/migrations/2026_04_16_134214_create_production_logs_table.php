@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('production_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
+            $table->string('action_type');
+            $table->text('old_value')->nullable();
+            $table->text('new_value')->nullable();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('tracking_histories', function (Blueprint $table) {
             $table->id();
+            $table->string('status');
+            $table->foreignId('tracking_id')->constrained('trackings')->cascadeOnDelete();
             $table->timestamps();
         });
     }

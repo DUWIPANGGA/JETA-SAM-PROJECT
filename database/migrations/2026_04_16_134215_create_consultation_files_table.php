@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('consultation_files', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('consultation_id')->constrained('consultations')->cascadeOnDelete();
+            $table->string('file_name');
+            $table->string('file_path');
             $table->timestamps();
         });
     }
