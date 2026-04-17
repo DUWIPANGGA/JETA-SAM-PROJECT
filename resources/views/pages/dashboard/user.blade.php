@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,6 @@
     <title>User Dashboard</title>
 </head>
 <body>
-    @include('layout.app')
     <ul>
         <li><x-icons.shirt_1 class="flex "/></li>
         <li>
@@ -22,4 +21,8 @@
         <li></li>
     </ul>
 </body>
-</html>
+</html> --}}
+
+@extends('layout.app')
+@section()
+@endsection
