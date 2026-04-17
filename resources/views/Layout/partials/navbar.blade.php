@@ -2,7 +2,9 @@
     <ul class="w-full list-none flex items-center justify-around">
         <div class="flex ">
             <li>
-                <x-icons.logo />
+                <a href="{{ route('dashboard') }}">
+                    <x-icons.logo />
+                </a>
             </li>
         </div>
         <div class="flex lg:gap-10 md:gap-5 gap-2 lg:mx-10 md:mx-5 mx-2">
@@ -15,7 +17,9 @@
         </div>
         <div class="flex">
             <li>
-                <x-icons.account />
+                <a href="{{ route('login') }}">
+                    <x-icons.account/>
+                </a>
             </li>
             <li>
                 <x-icons.cart />

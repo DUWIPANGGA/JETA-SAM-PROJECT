@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title></title>
+    <title>JETA Konveksi</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo.svg') }}">
 </head>
 
 <body>
