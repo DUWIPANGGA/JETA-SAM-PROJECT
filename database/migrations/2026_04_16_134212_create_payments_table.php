@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('payment_proof');
             
             $table->enum('payment_status', ['pending', 'completed', 'failed'])->default('pending');
-            // $table->timestamp('paid_at')->nullable();
             $table->timestamps();
         });
     }

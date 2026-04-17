@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('custom_orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('consultation_id')->constrained('consultations')->cascadeOnDelete();
+            $table->integer('dp_amount');
+            $table->integer('remaining_amount');
+            $table->enum('dp_status', ['pending', 'completed', 'failed'])->default('pending');
             $table->timestamps();
         });
     }

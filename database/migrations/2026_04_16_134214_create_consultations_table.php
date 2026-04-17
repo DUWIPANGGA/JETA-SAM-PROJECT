@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->text('message')->nullable();
+            $table->text('quantity_estimate')->nullable();
             $table->timestamps();
+            $table->enum('status', ['pending', 'completed', 'cancelled'])->default('pending');
+            
         });
     }
 

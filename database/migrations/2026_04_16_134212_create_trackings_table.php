@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('trackings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
+            $table->string('current_stage');
+            $table->integer('progress_percentage');
+            $table->timestamp('estimated_completion');
             $table->timestamps();
         });
     }

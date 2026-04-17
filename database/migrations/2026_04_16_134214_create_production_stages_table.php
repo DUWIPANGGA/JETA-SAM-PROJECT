@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('production_stages', function (Blueprint $table) {
             $table->id();
+            $table->string('stage_name');
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
+            $table->integer('progress')->nullable();
             $table->timestamps();
         });
     }

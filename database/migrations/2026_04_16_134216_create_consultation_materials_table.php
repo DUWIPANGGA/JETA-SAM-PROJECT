@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('consultation_materials', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('consultation_id')->constrained('consultations')->cascadeOnDelete();
+            $table->string('material_name');
+            $table->string('material_type');
+            $table->string('color_require');
+            $table->boolean('sample_required')->default(false);
             $table->timestamps();
         });
     }
