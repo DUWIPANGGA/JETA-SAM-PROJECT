@@ -1,25 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>User Dashboard</title>
-</head>
-<body>
-    @include('layout.app')
-    <ul>
-        <li><x-icons.shirt_1 class="flex "/></li>
-        <li>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </li>
-        <li></li>
-    </ul>
-</body>
-</html>
+@extends('layout.app')
+@section('main')
+    <div class="absolute top-1/3 left-4">
+        <x-icons.shirt_1 class="" />
+    </div>
+    <div class="absolute top-1/3 right-0">
+        <x-icons.shirt_2 class="" />
+    </div>
+    <div class="h-screen flex flex-col justify-center items-center align-center">
+        <h1 class="h1 text-center">Jersey Custom Berkualitas</h1>
+        <div class="h3">Dari tim komunitas sampai klub kompetitif, kami produksi jersey yang sesuai identitas tim Anda.
+            Bahan
+            tahan lama, cetak presisi, dan kualitas konsisten di setiap produksi.</div>
+        <x-ui.button>Mulai</x-ui.button>
+    </div>
+@endsection
