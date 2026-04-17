@@ -1,6 +1,6 @@
 @extends('Layout.app')
 
-@section('user_dashboard')
+@section('main')
     <div class="flex items-center justify-center min-h-[calc(100vh-4rem)] w-full pt-10 pb-20">
         <div class="bg-white border border-gray-200 px-8 py-10 w-[420px]">
             <div class="relative flex justify-center items-center mb-8">

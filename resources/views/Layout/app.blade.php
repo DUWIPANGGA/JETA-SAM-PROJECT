@@ -14,7 +14,7 @@
 <body>
     <div class="bg-[url('/images/bg.png')] w-full min-h-screen bg-repeat bg-[length:50px_50px]">
         @include('layout.partials.navbar')
-        @yield('user_dashboard')
+        @yield('main')
     </div>
 </body>
 
