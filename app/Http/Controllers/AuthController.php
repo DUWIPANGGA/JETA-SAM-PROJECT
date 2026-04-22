@@ -19,7 +19,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string',
+            'address' => 'string|max:255',
             'role' => 'nullable|in:admin,pic,customer',
         ]);
 
@@ -141,5 +141,61 @@ class AuthController extends Controller
                 'message' => 'Failed to refresh token'
             ], 500);
         }
+    }
+
+
+    public function change_password (Request $request) {
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'new_password' => 'required|string|min:6|confirmed'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $user = Auth('api')->user();
+
+        if (!Hash::check($request->old_password, $user->password)){
+            return response()->json([
+                'success' => false,
+                'message' => 'old password not matched'
+            ], 401);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->new_password)
+
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Password Changed'
+        ]);
+    }
+
+    public function forgot_password(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|exists:users,email',
+            'new_password' => 'required|string|min:6'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email not found',
+                'validator' => $validator->errors()
+            ], 422);
+        }
+
+        $user=User::where('email', $request->email)->first();
+        $user->update([
+            'password'=>Hash::make($request->new_password)
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Password has Changed'
+        ]);
     }
 }
