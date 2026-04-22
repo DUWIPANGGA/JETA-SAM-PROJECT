@@ -8,21 +8,23 @@
             </li>
         </div>
         <div class="flex lg:gap-10 md:gap-5 gap-2 lg:mx-10 md:mx-5 mx-2">
-            <li><a href="#">Beranda</a></li>
+            <li><a href="{{ url('/') }}">Beranda</a></li>
             <li><a href="#">Produk</a></li>
-            <li><a href="#">Lacak Pesanan</a></li>
+            <li><a href="{{ url('/tracking') }}">Lacak Pesanan</a></li>
             <li><a href="#">Tentang</a></li>
-            <li><a href="#">Portofolio</a></li>
-            <li><a href="#">Hubungi Kami</a></li>
+            <li><a href="{{ url('/portfolio') }}">Portofolio</a></li>
+            <li><a href="{{ url('/request') }}">Hubungi Kami</a></li>
         </div>
         <div class="flex">
             <li>
                 <a href="{{ route('login') }}">
-                    <x-icons.account/>
+                    <x-icons.account />
                 </a>
             </li>
             <li>
-                <x-icons.cart />
+                <a href="{{ url('/cart') }}">
+                    <x-icons.cart />
+                </a>
             </li>
         </div>
     </ul>
