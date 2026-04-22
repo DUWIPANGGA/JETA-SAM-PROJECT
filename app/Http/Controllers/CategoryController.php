@@ -42,6 +42,38 @@ class CategoryController extends Controller
         ], 201);
     }
 
+    public function update(Request $request, $id){
+        $category=Category::find($id);
+
+        if (!$category){
+            return response()->json([
+                'success' => false,
+                'message' => 'Category not Found'
+            ], 404);
+        }
+
+        $validator=Validator::make($request->all(), [
+            'name'  => 'required|max:255'
+        ]);
+
+        if ($validator->fails()){
+            return response()->json([
+                'success' => false,
+                'message' => 'Update Category Cancelled'
+            ], 422);
+        }
+
+        $category->update([
+            'name' => $request->name
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Category Updated successfully',
+            'data' => $category
+        ], 200);
+    }
+
     public function destroy ($id){
         $category=Category::find($id);
 
@@ -53,7 +85,7 @@ class CategoryController extends Controller
         }
 
         $category -> delete();
-        
+
         return response()->json([
             'success' => true,
             'message' => 'Category Destroy'
