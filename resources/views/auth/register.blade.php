@@ -18,7 +18,7 @@
 
             <hr class="border-gray-200 mb-6 -mx-8">
 
-            <form action="#" method="POST" class="mt-2">
+            <form id="form-register" class="mt-2">
                 <div class="mb-5">
                     <label for="name" class="block text-gray-800 text-base mb-2">Nama Lengkap</label>
                     <input type="text" id="name" name="name" placeholder="Nama anda"
@@ -35,6 +35,23 @@
                     <label for="password" class="block text-gray-800 text-base mb-2">Kata Sandi</label>
                     <div class="relative">
                         <input type="password" id="password" name="password" placeholder="********"
+                            class="w-full border border-gray-500 text-gray-800 rounded-full pl-5 pr-12 py-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm tracking-widest placeholder-gray-300 placeholder:tracking-widest">
+                        <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-5 outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-5 h-5 text-gray-600">
+                                <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                <path fill-rule="evenodd"
+                                    d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <label for="password" class="block text-gray-800 text-base mb-2">Konfirmasi Kata Sandi</label>
+                    <div class="relative">
+                        <input type="password" id="confirm-password" name="password" placeholder="********"
                             class="w-full border border-gray-500 text-gray-800 rounded-full pl-5 pr-12 py-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm tracking-widest placeholder-gray-300 placeholder:tracking-widest">
                         <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-5 outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -81,4 +98,70 @@
             </form>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const formRegister = document.getElementById('form-register');
+
+            if (formRegister) {
+                formRegister.addEventListener('submit', async function(event) {
+                    event.preventDefault(); 
+
+                    // document.getElementById('reg-error-message').classList.add('hidden');
+
+                    const data = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value,
+                        password_confirmation: document.getElementById('confirm-password').value,
+                        // phone: document.getElementById('phone').value,
+                        role: 'user' 
+                    };
+                
+                    await prosesRegister(data);
+                });
+            }
+        });
+        async function prosesRegister(dataForm) {
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json' 
+                    },
+                    body: JSON.stringify(dataForm)
+                });
+            
+                const result = await response.json();
+            
+                if (result.success) {
+                    alert('Registrasi Berhasil! Anda akan otomatis masuk.');
+
+                    localStorage.setItem('jwt_token', result.data.token);
+                    localStorage.setItem('user_data', JSON.stringify(result.data.user));
+
+                    window.location.href = '/dashboard';
+                } 
+                else if (result.errors) {
+                    // Tampilkan error pertama yang dikirim backend
+                    // const errorBox = document.getElementById('reg-error-message');
+                    alert(result.errors);
+                    // const firstErrorKey = Object.keys(result.errors)[0];
+                    // errorBox.innerText = result.errors[firstErrorKey][0];
+                    // errorBox.classList.remove('hidden');
+                } 
+                // JIKA GAGAL KARENA HAL LAIN
+                else {
+                    alert('Gagal Mendaftar: ' + result.message);
+                }
+            
+            } catch (error) {
+                console.error('Terjadi kesalahan jaringan:', error);
+                alert('Gagal menghubungi server.');
+            }
+        }
+    </script>
 @endsection

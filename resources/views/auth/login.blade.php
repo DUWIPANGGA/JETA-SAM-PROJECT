@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <form action="#" method="POST" class="mt-8">
+            <form id="form-login" method="POST" class="mt-8">
                 <div class="mb-5">
                     <label for="email" class="block text-gray-700 text-base mb-2">Email</label>
                     <input type="email" id="email" name="email" placeholder="Example@email.com"
@@ -67,4 +67,82 @@
             </form>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const formLogin = document.getElementById('form-login');
+
+            if (formLogin) {
+                formLogin.addEventListener('submit', async function(event) {
+                    event.preventDefault(); 
+
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                
+                    await prosesLogin(email, password);
+                });
+            }
+        
+            const btnLogout = document.getElementById('btn-logout');
+
+            if (btnLogout) {
+                btnLogout.addEventListener('click', async function(event) {
+                    event.preventDefault(); 
+
+                    if(confirm('Apakah Anda yakin ingin keluar?')) {
+                        await prosesLogout();
+                    }
+                });
+            }
+        
+        });
+
+        async function prosesLogout() {
+            const token = localStorage.getItem('jwt_token');
+
+            if (token) {
+                await fetch('/api/auth/logout', {
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+            }
+        
+            // Hapus sesi di browser
+            localStorage.removeItem('jwt_token');
+            localStorage.removeItem('user_data');
+
+            // Lempar kembali ke halaman login
+            window.location.href = '/login';
+        }
+        
+        async function prosesLogin(email, password) {
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email, password: password })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    localStorage.setItem('jwt_token', result.data.token);
+                    localStorage.setItem('user_data', JSON.stringify(result.data.user));
+
+                    alert('Login Berhasil!');
+
+                    window.location.href = '/dashboard';
+                } else {
+                    alert('Failed: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Terjadi kesalahan:', error);
+            }
+        }
+    </script>
 @endsection

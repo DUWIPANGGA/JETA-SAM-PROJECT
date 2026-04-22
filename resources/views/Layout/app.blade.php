@@ -21,6 +21,9 @@
         @yield('main')
         @include('layout.partials.footer')
     </div>
+    
+        @yield('script')
+    
 </body>
 
 </html>
