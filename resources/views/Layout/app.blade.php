@@ -19,6 +19,9 @@
         @include('layout.partials.navbar')
         @yield('main')
     </div>
+    
+        @yield('script')
+    
 </body>
 
 </html>
