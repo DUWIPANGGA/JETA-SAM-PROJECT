@@ -1,6 +1,4 @@
-@extends('Layout.app')
-
-@section('main')
+<?php $__env->startSection('main'); ?>
     <div class="flex items-center justify-center min-h-[calc(100vh-4rem)] w-full pt-10 pb-20">
         <div class="bg-white border border-gray-200 px-8 py-10 w-[420px]">
             <div class="relative flex justify-center items-center mb-8">
@@ -12,7 +10,26 @@
                     Kembali
                 </a>
                 <div class="-mt-1 scale-90">
-                    <x-icons.logo />
+                    <?php if (isset($component)) { $__componentOriginalb1d76caee4a8fe9b22aa99d46c64b51c = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalb1d76caee4a8fe9b22aa99d46c64b51c = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.icons.logo','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('icons.logo'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalb1d76caee4a8fe9b22aa99d46c64b51c)): ?>
+<?php $attributes = $__attributesOriginalb1d76caee4a8fe9b22aa99d46c64b51c; ?>
+<?php unset($__attributesOriginalb1d76caee4a8fe9b22aa99d46c64b51c); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalb1d76caee4a8fe9b22aa99d46c64b51c)): ?>
+<?php $component = $__componentOriginalb1d76caee4a8fe9b22aa99d46c64b51c; ?>
+<?php unset($__componentOriginalb1d76caee4a8fe9b22aa99d46c64b51c); ?>
+<?php endif; ?>
                 </div>
             </div>
 
@@ -67,8 +84,8 @@
             </form>
         </div>
     </div>
-@endsection
-@section('script')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
     <script>
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -116,4 +133,6 @@
             }
         }
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Layout.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\Herd\JETA-SAM-PROJECT\resources\views/auth/login.blade.php ENDPATH**/ ?>

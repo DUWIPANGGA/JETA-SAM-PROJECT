@@ -16,30 +16,31 @@
             <li><a href="{{ url('/request') }}">Hubungi Kami</a></li>
         </div>
         <div class="flex">
-            <li x-data="{ isLogged: false }" 
-                x-init="isLogged = (localStorage.getItem('jwt_token') !== null)" 
-                :class="isLogged ? 'hidden' : 'block'" >
-                <a href="{{ route('login') }}">
-                    <x-icons.account />
-                </a>
-            </li>
-            <li x-data="{ isLogged: false }" 
-                x-init="isLogged = (localStorage.getItem('jwt_token') !== null)" 
-                :class="isLogged ? 'block' : 'hidden'">
+            <ul class="flex items-center gap-4" 
+                x-data="{ isLogged: false }" 
+                x-init="isLogged = (localStorage.getItem('jwt_token') !== null)">
 
-                <button id="btn-logout" class="text-red-500 hover:text-red-700 transition-colors flex items-center gap-2" title="Keluar">
-                    <x-icons.logout /> 
-
-                    <span class="hidden md:inline-block font-medium"></span>
-                </button>
-            </li>
-
-            <li x-data="{ showCart: false }" x-init="showCart = (localStorage.getItem('user_data') !== null)" :class="showCart ? 'block' : 'hidden'">
-                <a href="{{ url('/cart') }}">
-                    <x-icons.cart />
-                </a>
-            </li>
+                <li x-show="!isLogged">
+                    <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-600">
+                        <x-icons.account />
+                    </a>
+                </li>
+            
+                <li x-show="isLogged">
+                    <a href="{{ url('/cart') }}" class="text-gray-600 hover:text-green-600">
+                        <x-icons.cart />
+                    </a>
+                </li>
+            
+                <li x-show="isLogged">
+                    <button id="btn-logout" class="flex text-gray-600 hover:text-red-600">
+                        <x-icons.logout />
+                    </button>
+                </li>
+            
+            </ul>
 
         </div>
     </ul>
 </div>
+<script src="{{ asset('js/auth.js') }}"></script>
