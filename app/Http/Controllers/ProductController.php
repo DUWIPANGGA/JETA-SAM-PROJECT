@@ -64,7 +64,7 @@ class ProductController extends Controller
     public function update(Request $request, $id){
         $product=Product::find($id);
 
-        if(!product){
+        if(!$product){
             return response()->json([
                 'success' => false,
                 'message' => 'Product not found'
@@ -72,13 +72,13 @@ class ProductController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'category_id' => 'required|exists:categories, id',
+            'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|max:255',
             'price' => 'required|integer',
             'stock' => 'required|integer',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'status' => 'required|in:active, inactive'
+            'status' => 'required|in:active,inactive'
         ]);
 
         if ($validator->fails()){
