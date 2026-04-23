@@ -89,28 +89,12 @@
                     </a>
                 </li>
             
-                <li x-show="isLogged">
-                    <button id="btn-logout" class="flex text-gray-600 hover:text-red-600">
-                        <?php if (isset($component)) { $__componentOriginal88de01fd0a2dfb43f9ff296f6277e232 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal88de01fd0a2dfb43f9ff296f6277e232 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.icons.logout','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('icons.logout'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
-<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
-<?php endif; ?>
-<?php $component->withAttributes([]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginal88de01fd0a2dfb43f9ff296f6277e232)): ?>
-<?php $attributes = $__attributesOriginal88de01fd0a2dfb43f9ff296f6277e232; ?>
-<?php unset($__attributesOriginal88de01fd0a2dfb43f9ff296f6277e232); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal88de01fd0a2dfb43f9ff296f6277e232)): ?>
-<?php $component = $__componentOriginal88de01fd0a2dfb43f9ff296f6277e232; ?>
-<?php unset($__componentOriginal88de01fd0a2dfb43f9ff296f6277e232); ?>
-<?php endif; ?>
+                <li x-show="isLogged" class="flex flex-col py-0">
+                    <button id="btn-logout" class="text-gray-600 hover:text-red-600">
+                        
+                        <p class="text-[0.8rem]">
+                            Logout
+                        </p>
                     </button>
                 </li>
             

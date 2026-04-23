@@ -78,11 +78,13 @@
     <div class="w-full py-16 px-0 max-w-7xl">
         <h2 class="text-3xl px-4 md:px-10 lg:px-20 lg:text-4xl font-bold mb-8 text-gray-900">Koleksi Produk</h2>
 
-        <div id="product-container"  class="flex gap-4 md:gap-6 overflow-x-auto pb-8 snap-x hide-scrollbar w-screen">
+        <div id="product-container"  class="flex items-center justify-center gap-4 md:gap-6 overflow-x-auto pb-8 snap-x hide-scrollbar w-screen">
             <!-- Card -->
             
-            Memuat produk...
-            <div class="text-gray-500 animate-pulse"></div>
+            
+            <p class="text-gray-500 animate-pulse">
+                Memuat produk...
+            </p>
         </div>
     </div>
 
@@ -259,8 +261,6 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
 <script src="<?php echo e(asset('js/product.js')); ?>"></script>
-
-
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('Layout.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\Herd\JETA-SAM-PROJECT\resources\views/welcome.blade.php ENDPATH**/ ?>

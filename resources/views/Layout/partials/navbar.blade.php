@@ -32,9 +32,12 @@
                     </a>
                 </li>
             
-                <li x-show="isLogged">
-                    <button id="btn-logout" class="flex text-gray-600 hover:text-red-600">
-                        <x-icons.logout />
+                <li x-show="isLogged" class="flex flex-col py-0">
+                    <button id="btn-logout" class="text-gray-600 hover:text-red-600">
+                        {{-- <x-icons.logout /> --}}
+                        <p class="text-[0.8rem]">
+                            Logout
+                        </p>
                     </button>
                 </li>
             
