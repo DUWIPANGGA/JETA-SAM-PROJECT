@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->constrained('products')->OnDelete('cascade');
             $table->string('size');
             $table->string('color');
-            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
-            $table->integer('stock');
-            $table->integer('price_adjustment');
+            $table->integer('stock')->default(0);
+            $table->decimal('price_adjustment', 12, 2)->nullable();
             $table->timestamps();
         });
     }
