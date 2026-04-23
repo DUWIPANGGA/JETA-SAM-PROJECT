@@ -46,6 +46,6 @@ Route::prefix('')->group(function(){
     Route::middleware('auth:api')->group(function(){
         Route::post('variants', [ProductVariantController::class, 'store']);
         Route::put('variants/{id}', [ProductVariantController::class, 'update']);
-        Route::destroy('variants/{id}', [ProductVariantController::class, 'destroy']);
+        Route::delete('variants/{id}', [ProductVariantController::class, 'destroy']);
     });
 });

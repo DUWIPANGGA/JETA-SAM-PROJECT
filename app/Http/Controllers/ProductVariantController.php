@@ -57,7 +57,7 @@ class ProductVariantController extends Controller
             ], 422);
         }
 
-        $variant=ProductVariant::crate([
+        $variant=ProductVariant::create([
             'product_id' => $request->product_id,
             'size' => $request->size,
             'color' => $request->color,
@@ -66,7 +66,7 @@ class ProductVariantController extends Controller
         ]);
 
         return response()->json([
-            'succsess' => true,
+            'success' => true,
             'message' => 'Variant Added Successfully',
             'data'=> $variant 
         ], 201);    
@@ -97,7 +97,7 @@ class ProductVariantController extends Controller
             ], 422);
         }
 
-        $variant-update([
+        $variant->update([
             'size' => $request->size,
             'color' => $request->color,
             'stock' => $request->stock,
