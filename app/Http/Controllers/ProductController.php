@@ -136,8 +136,8 @@ class ProductController extends Controller
             ], 404);
         }
 
-        if($product->image){
-            Storage::delete('public/' . $product->image);
+        if($product->image && file_exsist(public_path($product->image))){
+            unlink(public_path($product->image));
         }
 
         $product->delete();
