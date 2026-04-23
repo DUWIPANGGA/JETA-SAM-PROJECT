@@ -21,11 +21,13 @@
                     <x-icons.account />
                 </a>
             </li>
-            <li>
+
+            <li x-data="{ showCart: false }" x-init="showCart = (localStorage.getItem('user_data') !== null)" :class="showCart ? 'block' : 'hidden'">
                 <a href="{{ url('/cart') }}">
                     <x-icons.cart />
                 </a>
             </li>
+
         </div>
     </ul>
 </div>

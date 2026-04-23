@@ -82,7 +82,7 @@
 
         <div class="flex gap-4 md:gap-6 overflow-x-auto pb-8 snap-x hide-scrollbar w-screen">
             <!-- Card -->
-            @for ($i = 0; $i < 6; $i++)
+            {{-- @for ($i = 0; $i < 6; $i++)
                 <div
                     class="min-w-[200px] md:min-w-[240px] w-[200px] md:w-[240px] bg-white flex-shrink-0 snap-center group cursor-pointer border border-gray-300">
                     <div class="h-[240px] md:h-[280px] w-full relative overflow-hidden bg-gray-100">
@@ -96,7 +96,8 @@
                         <div class="text-[#2B303A] font-normal text-2xl lg:text-3xl tracking-tight mt-1">Rp. 200.000</div>
                     </div>
                 </div>
-            @endfor
+            @endfor --}}
+            <div id="product-container" class="text-gray-500 animate-pulse">Memuat produk...</div>
         </div>
     </div>
 
@@ -270,4 +271,9 @@
             class="absolute top-1/2 -translate-y-1/2 -right-12 w-full md:w-full h-[40px] bg-[url('/images/substract.svg')] bg-repeat-x bg-[length:auto_100%] transform -rotate-45 origin-right">
         </div>
     </div>
+@endsection
+@section('script')
+<script src="{{ asset('js/product.js') }}"></script>
+
+
 @endsection

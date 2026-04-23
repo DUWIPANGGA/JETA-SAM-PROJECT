@@ -21,7 +21,15 @@
         @yield('main')
         @include('layout.partials.footer')
     </div>
-    
+    <script>
+    const rawData = localStorage.getItem('user_data');
+
+    if (rawData) {
+        const userData = JSON.parse(rawData);
+        console.log(userData.name);
+        
+    }
+</script>
         @yield('script')
     
 </body>

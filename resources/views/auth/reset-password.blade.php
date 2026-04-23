@@ -11,11 +11,17 @@
 
             <hr class="border-gray-100 mb-8 mt-2 -mx-8">
 
-            <form action="#" method="POST">
+            <form id="form-forgot-password" method="POST">
                 <div class="mb-5">
-                    <label for="password" class="block text-gray-700 text-base mb-2">Tulis Password Baru</label>
+                    <label for="email" class="block text-gray-700 text-base mb-2">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Example@email.com"
+                        class="w-full border border-gray-600 text-gray-700 rounded-full px-5 py-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm placeholder-gray-300">
+                </div>
+
+                <div class="mb-8">
+                    <label for="password_confirmation" class="block text-gray-700 text-base mb-2">Password Baru</label>
                     <div class="relative">
-                        <input type="password" id="password" name="password" placeholder="********"
+                        <input type="password" id="password" name="password_confirmation" placeholder="********"
                             class="w-full border border-gray-600 text-gray-700 rounded-full pl-5 pr-12 py-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm tracking-widest placeholder-gray-300 placeholder:tracking-widest">
                         <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-5 outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -29,22 +35,7 @@
                     </div>
                 </div>
 
-                <div class="mb-8">
-                    <label for="password_confirmation" class="block text-gray-700 text-base mb-2">Tulis Ulang Password</label>
-                    <div class="relative">
-                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="********"
-                            class="w-full border border-gray-600 text-gray-700 rounded-full pl-5 pr-12 py-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm tracking-widest placeholder-gray-300 placeholder:tracking-widest">
-                        <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-5 outline-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-5 h-5 text-gray-700">
-                                <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                                <path fill-rule="evenodd"
-                                    d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+                <div id="error-message" class="text-red-500 text-sm mb-4 hidden"></div>
 
                 <hr class="border-gray-100 mb-8 -mx-8">
 
@@ -62,4 +53,78 @@
             </form>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const formForgot = document.getElementById('form-forgot-password');
+        
+        if (formForgot) {
+            formForgot.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                
+                const errorBox = document.getElementById('error-message');
+                if (errorBox) {
+                    errorBox.classList.add('hidden');
+                    errorBox.innerText = '';
+                }
+            
+                const email = document.getElementById('email').value;
+                const newPassword = document.getElementById('password').value;
+            
+                if (!email || !newPassword) {
+                    alert('Mohon isi email dan password baru.');
+                    return;
+                }
+            
+                if (newPassword.length < 6) {
+                    errorBox.innerText = 'Password baru minimal 6 karakter.';
+                    errorBox.classList.remove('hidden');
+                    return;
+                }
+            
+                await prosesResetPassword(email, newPassword);
+            });
+        }
+    
+    });
+    
+    
+    async function prosesResetPassword(email, newPassword) {
+        try {
+            const response = await fetch('/api/auth/forgot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    new_password: newPassword
+                })
+            });
+        
+            const result = await response.json();
+        
+            if (result.success) {
+                alert('Password berhasil direset! Silakan masuk dengan password baru Anda.');
+                window.location.href = '/login'; 
+            } 
+            else if (result.validator) {
+                const errorBox = document.getElementById('forgot-error-message');
+                const firstErrorKey = Object.keys(result.validator)[0];
+                errorBox.innerText = result.validator[firstErrorKey][0];
+                errorBox.classList.remove('hidden');
+            } 
+            else {
+                alert('Gagal: ' + result.message);
+            }
+        
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan jaringan saat mencoba mereset password.');
+        }
+    }
+</script>
 @endsection

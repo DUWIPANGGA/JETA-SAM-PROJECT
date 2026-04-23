@@ -101,29 +101,48 @@
 @endsection
 @section('script')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        const formRegister = document.getElementById('form-register');
 
-            const formRegister = document.getElementById('form-register');
+        if (formRegister) {
+            formRegister.addEventListener('submit', async function(event) {
+                event.preventDefault(); 
 
-            if (formRegister) {
-                formRegister.addEventListener('submit', async function(event) {
-                    event.preventDefault(); 
+                const errorBox = document.getElementById('reg-error-message');
+                if (errorBox) {
+                    errorBox.classList.add('hidden');
+                    errorBox.innerText = ''; 
+                }
 
-                    // document.getElementById('reg-error-message').classList.add('hidden');
-
-                    const data = {
-                        name: document.getElementById('name').value,
-                        email: document.getElementById('email').value,
-                        password: document.getElementById('password').value,
-                        password_confirmation: document.getElementById('confirm-password').value,
-                        // phone: document.getElementById('phone').value,
-                        role: 'user' 
-                    };
-                
-                    await prosesRegister(data);
-                });
-            }
-        });
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const passwordConfirm = document.getElementById('confirm-password').value;
+                const address = document.getElementById('address').value;
+                // const phone = document.getElementById('reg-phone') ? document.getElementById('reg-phone').value.trim() : '';
+            
+                if (!name || !email || !password || !passwordConfirm) {
+                    alert('Mohon lengkapi semua data wajib (Nama, Email, dan Password).');
+                    return; 
+                }
+            
+                if (password !== passwordConfirm) {
+                    alert('Password dan Konfirmasi Password tidak cocok!');
+                    return; 
+                }
+            
+                const data = {
+                    name: name,
+                    email: email,
+                    password: password,
+                    password_confirmation: passwordConfirm,
+                    address: address
+                    // phone: phone,
+                    // role: 'customer' 
+                };
+            
+                await prosesRegister(data);
+            });
+        }
         async function prosesRegister(dataForm) {
             try {
                 const response = await fetch('/api/auth/register', {
@@ -143,7 +162,7 @@
                     localStorage.setItem('jwt_token', result.data.token);
                     localStorage.setItem('user_data', JSON.stringify(result.data.user));
 
-                    window.location.href = '/dashboard';
+                    window.location.href = '/';
                 } 
                 else if (result.errors) {
                     // Tampilkan error pertama yang dikirim backend

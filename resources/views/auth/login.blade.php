@@ -46,7 +46,7 @@
                             class="mr-2 w-4 h-4 rounded border-gray-400 text-blue-500 focus:ring-blue-500 cursor-pointer">
                         Ingat akun saya
                     </label>
-                    <a href="#" class="text-sm text-[#3b82f6] hover:text-blue-700 italic">Lupa Password?</a>
+                    <a href="/reset-password" class="text-sm text-[#3b82f6] hover:text-blue-700 italic">Lupa Password?</a>
                 </div>
 
                 <hr class="border-gray-100 mb-8 mt-2 -mx-8">
@@ -70,8 +70,11 @@
 @endsection
 @section('script')
     <script>
+        
         document.addEventListener('DOMContentLoaded', function() {
-
+if (rawData) {
+        window.location.href = "/";
+    }
             const formLogin = document.getElementById('form-login');
 
             if (formLogin) {
@@ -84,7 +87,7 @@
                     await prosesLogin(email, password);
                 });
             }
-        
+
             const btnLogout = document.getElementById('btn-logout');
 
             if (btnLogout) {
@@ -96,7 +99,6 @@
                     }
                 });
             }
-        
         });
 
         async function prosesLogout() {
@@ -109,11 +111,9 @@
                 });
             }
         
-            // Hapus sesi di browser
             localStorage.removeItem('jwt_token');
             localStorage.removeItem('user_data');
 
-            // Lempar kembali ke halaman login
             window.location.href = '/login';
         }
         
@@ -136,7 +136,7 @@
 
                     alert('Login Berhasil!');
 
-                    window.location.href = '/dashboard';
+                    window.location.href = '/';
                 } else {
                     alert('Failed: ' + result.message);
                 }
