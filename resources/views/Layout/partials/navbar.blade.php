@@ -16,10 +16,22 @@
             <li><a href="{{ url('/request') }}">Hubungi Kami</a></li>
         </div>
         <div class="flex">
-            <li>
+            <li x-data="{ isLogged: false }" 
+                x-init="isLogged = (localStorage.getItem('jwt_token') !== null)" 
+                :class="isLogged ? 'hidden' : 'block'" >
                 <a href="{{ route('login') }}">
                     <x-icons.account />
                 </a>
+            </li>
+            <li x-data="{ isLogged: false }" 
+                x-init="isLogged = (localStorage.getItem('jwt_token') !== null)" 
+                :class="isLogged ? 'block' : 'hidden'">
+
+                <button id="btn-logout" class="text-red-500 hover:text-red-700 transition-colors flex items-center gap-2" title="Keluar">
+                    <x-icons.logout /> 
+
+                    <span class="hidden md:inline-block font-medium"></span>
+                </button>
             </li>
 
             <li x-data="{ showCart: false }" x-init="showCart = (localStorage.getItem('user_data') !== null)" :class="showCart ? 'block' : 'hidden'">
