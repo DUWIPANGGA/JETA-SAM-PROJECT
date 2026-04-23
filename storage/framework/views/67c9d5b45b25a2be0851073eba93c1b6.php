@@ -35,9 +35,13 @@
             <li><a href="<?php echo e(url('/request')); ?>">Hubungi Kami</a></li>
         </div>
         <div class="flex">
-            <li>
-                <a href="<?php echo e(route('login')); ?>">
-                    <?php if (isset($component)) { $__componentOriginal7d2e61ec2d8a25cb7439684c2af2ed3c = $component; } ?>
+            <ul class="flex items-center gap-4" 
+                x-data="{ isLogged: false }" 
+                x-init="isLogged = (localStorage.getItem('jwt_token') !== null)">
+
+                <li x-show="!isLogged">
+                    <a href="<?php echo e(route('login')); ?>" class="text-gray-600 hover:text-blue-600">
+                        <?php if (isset($component)) { $__componentOriginal7d2e61ec2d8a25cb7439684c2af2ed3c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal7d2e61ec2d8a25cb7439684c2af2ed3c = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.icons.account','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('icons.account'); ?>
@@ -57,11 +61,12 @@
 <?php $component = $__componentOriginal7d2e61ec2d8a25cb7439684c2af2ed3c; ?>
 <?php unset($__componentOriginal7d2e61ec2d8a25cb7439684c2af2ed3c); ?>
 <?php endif; ?>
-                </a>
-            </li>
-            <li>
-                <a href="<?php echo e(url('/cart')); ?>">
-                    <?php if (isset($component)) { $__componentOriginala2559504ffbfc2f0c65f3c151186db60 = $component; } ?>
+                    </a>
+                </li>
+            
+                <li x-show="isLogged">
+                    <a href="<?php echo e(url('/cart')); ?>" class="text-gray-600 hover:text-green-600">
+                        <?php if (isset($component)) { $__componentOriginala2559504ffbfc2f0c65f3c151186db60 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginala2559504ffbfc2f0c65f3c151186db60 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.icons.cart','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('icons.cart'); ?>
@@ -81,9 +86,22 @@
 <?php $component = $__componentOriginala2559504ffbfc2f0c65f3c151186db60; ?>
 <?php unset($__componentOriginala2559504ffbfc2f0c65f3c151186db60); ?>
 <?php endif; ?>
-                </a>
-            </li>
+                    </a>
+                </li>
+            
+                <li x-show="isLogged" class="flex flex-col py-0">
+                    <button id="btn-logout" class="text-gray-600 hover:text-red-600">
+                        
+                        <p class="text-[0.8rem]">
+                            Logout
+                        </p>
+                    </button>
+                </li>
+            
+            </ul>
+
         </div>
     </ul>
 </div>
+<script src="<?php echo e(asset('js/auth.js')); ?>"></script>
 <?php /**PATH E:\Julian\magang\JETA-SAM-PROJECT\resources\views/layout/partials/navbar.blade.php ENDPATH**/ ?>

@@ -78,23 +78,13 @@
     <div class="w-full py-16 px-0 max-w-7xl">
         <h2 class="text-3xl px-4 md:px-10 lg:px-20 lg:text-4xl font-bold mb-8 text-gray-900">Koleksi Produk</h2>
 
-        <div class="flex gap-4 md:gap-6 overflow-x-auto pb-8 snap-x hide-scrollbar w-screen">
+        <div id="product-container"  class="flex items-center justify-center gap-4 md:gap-6 overflow-x-auto pb-8 snap-x hide-scrollbar w-screen">
             <!-- Card -->
-            <?php for($i = 0; $i < 6; $i++): ?>
-                <div
-                    class="min-w-[200px] md:min-w-[240px] w-[200px] md:w-[240px] bg-white flex-shrink-0 snap-center group cursor-pointer border border-gray-300">
-                    <div class="h-[240px] md:h-[280px] w-full relative overflow-hidden bg-gray-100">
-                        <!-- Product Image -->
-                        <img src="<?php echo e(asset('images/product_demo.jpg')); ?>"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            alt="Product">
-                    </div>
-                    <div class="px-4 py-4">
-                        <div class="text-gray-800 text-lg font-normal mb-1">Product Name</div>
-                        <div class="text-[#2B303A] font-normal text-2xl lg:text-3xl tracking-tight mt-1">Rp. 200.000</div>
-                    </div>
-                </div>
-            <?php endfor; ?>
+            
+            
+            <p class="text-gray-500 animate-pulse">
+                Memuat produk...
+            </p>
         </div>
     </div>
 
@@ -268,6 +258,9 @@
             class="absolute top-1/2 -translate-y-1/2 -right-12 w-full md:w-full h-[40px] bg-[url('/images/substract.svg')] bg-repeat-x bg-[length:auto_100%] transform -rotate-45 origin-right">
         </div>
     </div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
+<script src="<?php echo e(asset('js/product.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('Layout.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\Julian\magang\JETA-SAM-PROJECT\resources\views/welcome.blade.php ENDPATH**/ ?>

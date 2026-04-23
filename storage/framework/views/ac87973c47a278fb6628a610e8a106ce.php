@@ -11,6 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>JETA Konveksi</title>
     <link rel="icon" type="image/svg+xml" href="<?php echo e(asset('images/logo.svg')); ?>">
 </head>
@@ -21,7 +22,15 @@
         <?php echo $__env->yieldContent('main'); ?>
         <?php echo $__env->make('layout.partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     </div>
-    
+    <script>
+    const rawData = localStorage.getItem('user_data');
+
+    if (rawData) {
+        const userData = JSON.parse(rawData);
+        console.log(userData.name);
+        
+    }
+</script>
         <?php echo $__env->yieldContent('script'); ?>
     
 </body>
