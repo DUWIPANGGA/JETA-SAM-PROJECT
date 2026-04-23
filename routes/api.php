@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductVariantController;
 
 Route::prefix('auth') -> group(function () {
     Route::post('register', [AuthController::class, 'register']);
@@ -40,7 +41,11 @@ Route::prefix('')->group(function(){
 
 Route::prefix('')->group(function(){
     // product variant
+    Route::get('variants', [ProductVariantController::class, 'index']);
+    Route::get('products/{product_id}/variants/{variant_id}/check_stock', [ProductVariantController::class, 'check_stock']);
     Route::middleware('auth:api')->group(function(){
-
+        Route::post('variants', [ProductVariantController::class, 'store']);
+        Route::put('variants/{id}', [ProductVariantController::class, 'update']);
+        Route::destroy('variants/{id}', [ProductVariantController::class, 'destroy']);
     });
 });
